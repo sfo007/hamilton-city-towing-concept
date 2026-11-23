@@ -1,0 +1,59 @@
+/* Hi-Vis Night Shift — motion layer */
+header{position:sticky;top:0;z-index:50;background:rgba(17,19,22,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:box-shadow .25s}
+header>div{transition:padding .25s}
+header.is-stuck{box-shadow:0 10px 30px rgba(0,0,0,.45)}
+header.is-stuck>div{padding-top:10px !important;padding-bottom:10px !important}
+
+/* tow-line scroll progress with a truck riding it */
+.towline{position:absolute;left:0;bottom:-1px;height:3px;width:100%;pointer-events:none}
+.towline-bar{height:100%;width:0;background:#FFB81C;box-shadow:0 0 12px rgba(255,184,28,.7)}
+.towline-truck{position:absolute;bottom:2px;left:0;width:34px;height:18px;transform:translateX(-50%);transition:opacity .2s;opacity:0}
+header.is-stuck .towline-truck{opacity:1}
+
+/* moving hazard tape */
+.hz{background-size:45.25px 45.25px !important;animation:hz-move 1.4s linear infinite}
+@keyframes hz-move{to{background-position:45.25px 0}}
+
+/* beacon pulse on status dots */
+.beacon{position:relative}
+.beacon::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid currentColor;animation:beacon 1.6s ease-out infinite}
+@keyframes beacon{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+
+/* headlight sweep across image slots */
+.ph{position:relative;overflow:hidden}
+.ph::after{content:"";position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,184,28,.10) 45%,rgba(255,236,190,.16) 50%,rgba(255,184,28,.10) 55%,transparent);transform:skewX(-12deg);animation:sweep 6s ease-in-out infinite;pointer-events:none}
+@keyframes sweep{0%,35%{left:-60%}75%,100%{left:130%}}
+
+/* scroll reveals */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.rv-l{transform:translateX(-40px)}.rv-r{transform:translateX(40px)}
+
+/* hero headline: lines slam in like a road sign flipping */
+.hero-line{display:inline-block;opacity:0;transform:translateY(60%) rotateX(-60deg);transform-origin:bottom;animation:line-in .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes line-in{to{opacity:1;transform:none}}
+
+/* services marquee */
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;gap:32px;width:max-content;animation:marquee 28s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* button shine */
+.btn-a{position:relative;overflow:hidden}
+.btn-a::before{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg)}
+.btn-a:hover::before{left:130%;transition:left .6s ease}
+
+/* tiles lift with an amber edge */
+.tile{position:relative}
+.tile::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:3px;background:#FFB81C;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.tile:hover::after{transform:scaleX(1)}
+
+/* big phone number glow in CTA */
+a[href^="tel:"].glow{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 8px rgba(17,19,22,.15),0 0 40px rgba(17,19,22,.35)}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .rv,.hero-line{opacity:1 !important;transform:none !important}
+}
